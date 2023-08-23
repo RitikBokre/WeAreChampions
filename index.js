@@ -3,6 +3,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebas
 import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
 const textInputEl = document.querySelector(".text-input");
+const fromInputEl = document.querySelector(".from-input");
+const toInputEl = document.querySelector(".to-input");
 const button = document.querySelector(".btn");
 const ulEl = document.querySelector(".endor-list");
 const appConfig = {
@@ -15,8 +17,19 @@ const location = ref(database, "Endorsements");
 function renderItem(item) {
     const [itemKey, itemValue] = item;
     // ulEl.innerHTML += `<li>${itemValue}</li>`;
+    const { text, fromText, toText } = itemValue;
     const liEl = document.createElement("li");
-    liEl.textContent = itemValue;
+    if(fromText){
+        const fromSpanEl = document.createElement("b");
+        fromSpanEl.textContent = `From ${fromText}`
+        liEl.append(fromSpanEl)
+    }
+    liEl.innerHTML += text;
+    if(toText){
+        const toSpanEl = document.createElement("b");
+        toSpanEl.textContent = `To ${toText}`
+        liEl.append(toSpanEl)
+    }
     liEl.addEventListener("dblclick", function () {
         let liLoaction = ref(database, `Endorsements/${itemKey}`);
         remove(liLoaction);
@@ -43,9 +56,13 @@ onValue(location, function (snap) {
 
 function pushEndor() {
     const text = textInputEl.value;
+    const fromText = fromInputEl.value;
+    const toText = toInputEl.value;
     if (text) {
-        push(location, text);
+        push(location, { text, fromText, toText });
         textInputEl.value = "";
+        fromInputEl.value = ""
+        toInputEl.value = "";
     }
 }
 
