@@ -29,7 +29,8 @@ body {
     width: 100%;
 }
 
-.text-input:focus{
+.text-input:focus,
+.input-wrapper > input:focus{
     border: 1px solid #fff;
     outline: none;
 }
@@ -53,6 +54,7 @@ body {
     font-family: 'Inter', sans-serif;
     list-style: none;
     padding: 0; 
+    text-align: left;
 }
 
 li{
@@ -60,4 +62,33 @@ li{
     color: #333;
     padding: 12px 16px;
     margin-bottom: 12px;
+}
+
+.input-wrapper {
+    display: flex;
+    gap:10px;
+}
+
+.input-wrapper > input {
+    text-align: center;
+    width: 100%;
+    padding:10px 0;
+    border-radius: 8px;
+    background: #444059;
+    color: #8F8F8F;
+    border: 1px solid #444059;
+    font-family: 'Inter', sans-serif;
+    margin-top: 8px;
+}
+
+b{
+    display: block;
+}
+
+li > b:first-of-type{
+    margin-bottom: 4px;
+}
+
+li > b:last-of-type{
+    margin-top: 4px;
 }
